@@ -33,14 +33,14 @@
       const images = new Array(100).fill(null);
       for (let i = 0; i < 100; i++) {
         images[i] = new Image()
-        images[i].src = `/Test/BK_Slide_Up_${`00000${i}`.substr(-5)}.png`;
+        images[i].src = `Test/BK_Slide_Up_${`00000${i}`.substr(-5)}.png`;
       }
 
-      <!-- function range_update(e) { -->
-      <!--   context.fillRect(0, 0, CONFIG.width, CONFIG.height); -->
-      <!--   context.drawImage(images[Math.min(99, Math.max(0, e.target.value))], 0, 0); -->
-      <!-- } -->
-      <!-- range.addEventListener("input", range_update); -->
+      // function range_update(e) {
+      //   context.fillRect(0, 0, CONFIG.width, CONFIG.height);
+      //   context.drawImage(images[Math.min(99, Math.max(0, e.target.value))], 0, 0);
+      // }
+      // range.addEventListener("input", range_update);
 
       let values = [];
 
@@ -72,14 +72,13 @@
       });
 
 
-      <!-- let index = 0; -->
-      <!-- function animate() { -->
-      <!--   context.fillRect(0, 0, 540, 540); -->
-      <!--   context.drawImage(images[index++ % images.length], 0, 0); -->
-      <!--   requestAnimationFrame(animate); -->
-      <!-- }; -->
-      <!--  -->
-      <!-- requestAnimationFrame(animate); -->
+      // let index = 0;
+      // function animate() {
+      //   context.fillRect(0, 0, 540, 540);
+      //   context.drawImage(images[index++ % images.length], 0, 0);
+      //   requestAnimationFrame(animate);
+      // };
+      // requestAnimationFrame(animate);
     })();
   </script>
 </body>
