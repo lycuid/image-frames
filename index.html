@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <style>
+    body, html {
+      padding: 0;
+      margin: 0;
+    }
+    html {
+      height: 100vh;
+    }
+    body {
+      min-height: 300vh;
+    }
+
+    #canvas {
+      position: sticky;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" height="540" width="540"></canvas>
+  <br />
+  <!-- <input id="range" type="range" min="0" max="100" value="0" /> -->
+  <script>
+    (function() {
+      const CONFIG = { width: 540, height: 540 };
+
+      <!-- const range = document.getElementById("range"); -->
+      const canvas = document.getElementById("canvas");
+      const context = canvas.getContext("2d");
+      const images = new Array(100).fill(null);
+      for (let i = 0; i < 100; i++) {
+        images[i] = new Image()
+        images[i].src = `/Test/BK_Slide_Up_${`00000${i}`.substr(-5)}.png`;
+      }
+
+      <!-- function range_update(e) { -->
+      <!--   context.fillRect(0, 0, CONFIG.width, CONFIG.height); -->
+      <!--   context.drawImage(images[Math.min(99, Math.max(0, e.target.value))], 0, 0); -->
+      <!-- } -->
+      <!-- range.addEventListener("input", range_update); -->
+
+      let values = [];
+
+      context.fillStyle = "#fff";
+      function scrollAnimation(from, to) {
+        return function(delta) {
+          if (from == to) return;
+          context.fillRect(0, 0, CONFIG.width, CONFIG.height);
+          context.drawImage(images[from], 0, 0);
+          requestAnimationFrame(from < to ? scrollAnimation(from+1, to) : scrollAnimation(from-1, to));
+        }
+      }
+
+      let previous = 0;
+      function startAnimation() {
+        if (values.length == 0) {
+          return;
+        }
+        const next = values[1];
+        values.splice(1);
+        requestAnimationFrame(scrollAnimation(previous, next));
+        previous = next;
+      }
+
+      window.addEventListener("scroll", function(e) {
+        const scrollable_window = document.body.scrollHeight - window.innerHeight;
+        values.push(Math.round((scrollable_window - (scrollable_window - window.scrollY)) / scrollable_window * 100));
+        startAnimation();
+      });
+
+
+      <!-- let index = 0; -->
+      <!-- function animate() { -->
+      <!--   context.fillRect(0, 0, 540, 540); -->
+      <!--   context.drawImage(images[index++ % images.length], 0, 0); -->
+      <!--   requestAnimationFrame(animate); -->
+      <!-- }; -->
+      <!--  -->
+      <!-- requestAnimationFrame(animate); -->
+    })();
+  </script>
+</body>
+</html>
